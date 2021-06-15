@@ -1,4 +1,4 @@
-# arduino-mqtt
+# arduino-mqtt - (ADDED: Chunked Large receive)
 
 [![Test](https://github.com/256dpi/arduino-mqtt/actions/workflows/test.yml/badge.svg)](https://github.com/256dpi/arduino-mqtt/actions/workflows/test.yml)
 [![GitHub release](https://img.shields.io/github/release/256dpi/arduino-mqtt.svg)](https://github.com/256dpi/arduino-mqtt/releases)
@@ -148,10 +148,10 @@ void onMessage(MQTTClientCallbackSimpleFunction cb);
 // Callback signature: std::function<void(String &topic, String &payload)>
 
 void onMessageAdvanced(MQTTClientCallbackAdvanced);
-// Callback signature: void messageReceived(MQTTClient *client, char topic[], char bytes[], int length) {}
+// Callback signature: void messageReceived(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index) {}
 
 void onMessageAdvanced(MQTTClientCallbackAdvancedFunction cb);
-// Callback signature: std::function<void(MQTTClient *client, char topic[], char bytes[], int length)>
+// Callback signature: std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index)>
 ```
 
 - The set callback is mostly called during a call to `loop()` but may also be called during a call to `subscribe()`, `unsubscribe()` or `publish() // QoS > 0` if messages have been received before receiving the required acknowledgement. Therefore, it is strongly recommended to not call `subscribe()`, `unsubscribe()` or `publish() // QoS > 0` directly in the callback.
