@@ -70,7 +70,8 @@ static uint16_t lwmqtt_get_next_packet_id(lwmqtt_client_t *client) {
 static lwmqtt_err_t lwmqtt_read_from_network(lwmqtt_client_t *client, size_t offset, size_t len) {
   // check read buffer capacity
   if (client->read_buf_size < offset + len) {
-    return LWMQTT_BUFFER_TOO_SHORT;
+    len=client->read_buf_size-offset;
+    //return LWMQTT_BUFFER_TOO_SHORT;
   }
 
   // prepare counter
@@ -221,6 +222,7 @@ static lwmqtt_err_t lwmqtt_read_packet_in_buffer(lwmqtt_client_t *client, size_t
 
   // read the rest of the buffer if needed
   if (rem_len > 0) {
+    if(rem_len>client->read_buf_size-len-1) rem_len=client->read_buf_size-len-1;// - BUT MAX INSIDE BUFFER
     err = lwmqtt_read_from_network(client, 1 + len, rem_len);
     if (err != LWMQTT_SUCCESS) {
       return err;
@@ -263,15 +265,23 @@ static lwmqtt_err_t lwmqtt_cycle(lwmqtt_client_t *client, size_t *read, lwmqtt_p
       uint16_t packet_id;
       lwmqtt_string_t topic;
       lwmqtt_message_t msg;
+      msg.total_len=0;msg.index=0;msg.payload_len=0;
+      
       err = lwmqtt_decode_publish(client->read_buf, client->read_buf_size, &dup, &packet_id, &topic, &msg);
       if (err != LWMQTT_SUCCESS) {
         return err;
       }
 
-      // call callback if set
-      if (client->callback != NULL) {
-        client->callback(client, client->callback_ref, topic, msg);
-      }
+      do {
+        // call callback if set
+        if (client->callback != NULL) {
+          client->callback(client, client->callback_ref, topic, msg);
+        }
+        msg.index+=msg.payload_len;
+        unsigned int len=msg.total_len-msg.index;
+        if(len>client->read_buf_size-(msg.payload-client->read_buf)) len=client->read_buf_size-(msg.payload-client->read_buf);
+        if(len>0){lwmqtt_read_from_network(client, msg.payload-client->read_buf, len);msg.payload_len=len;}
+      } while(msg.index<msg.total_len);
 
       // break early on qos zero
       if (msg.qos == LWMQTT_QOS0) {

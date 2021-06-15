@@ -436,11 +436,6 @@ lwmqtt_err_t lwmqtt_decode_publish(uint8_t *buf, size_t buf_len, bool *dup, uint
     return LWMQTT_REMAINING_LENGTH_MISMATCH;
   }
 
-  // check buffer capacity
-  if ((uint32_t)(buf_end - buf_ptr) < rem_len) {
-    return LWMQTT_BUFFER_TOO_SHORT;
-  }
-
   // reset buf end
   buf_end = buf_ptr + rem_len;
 
@@ -461,6 +456,8 @@ lwmqtt_err_t lwmqtt_decode_publish(uint8_t *buf, size_t buf_len, bool *dup, uint
   }
 
   // set payload length
+  msg->total_len = buf_end - buf_ptr;
+  if((buf_end-buf) > buf_len) buf_end=buf + buf_len;
   msg->payload_len = buf_end - buf_ptr;
 
   // read payload

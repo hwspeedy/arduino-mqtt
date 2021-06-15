@@ -73,6 +73,8 @@ typedef struct {
   bool retained;
   uint8_t *payload;
   size_t payload_len;
+  size_t total_len;
+  size_t index;
 } lwmqtt_message_t;
 
 /**

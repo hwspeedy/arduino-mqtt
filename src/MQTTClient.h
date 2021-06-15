@@ -46,11 +46,10 @@ typedef struct {
 class MQTTClient;
 
 typedef void (*MQTTClientCallbackSimple)(String &topic, String &payload);
-typedef void (*MQTTClientCallbackAdvanced)(MQTTClient *client, char topic[], char bytes[], int length);
+typedef void (*MQTTClientCallbackAdvanced)(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index);
 #if MQTT_HAS_FUNCTIONAL
 typedef std::function<void(String &topic, String &payload)> MQTTClientCallbackSimpleFunction;
-typedef std::function<void(MQTTClient *client, char topic[], char bytes[], int length)>
-    MQTTClientCallbackAdvancedFunction;
+typedef std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index)> MQTTClientCallbackAdvancedFunction;
 #endif
 
 typedef struct {

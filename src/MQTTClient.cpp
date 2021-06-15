@@ -109,22 +109,23 @@ static void MQTTClientHandler(lwmqtt_client_t * /*client*/, void *ref, lwmqtt_st
   memcpy(terminated_topic, topic.data, topic.len);
   terminated_topic[topic.len] = '\0';
 
-  // null terminate payload if available
-  if (message.payload != nullptr) {
-    message.payload[message.payload_len] = '\0';
-  }
-
+  
   // call the advanced callback and return if available
   if (cb->advanced != nullptr) {
-    cb->advanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len);
+    cb->advanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len,(int)message.total_len,(int)message.index);
     return;
   }
 #if MQTT_HAS_FUNCTIONAL
   if (cb->functionAdvanced != nullptr) {
-    cb->functionAdvanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len);
+    cb->functionAdvanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len,(int)message.total_len,(int)message.index);
     return;
   }
 #endif
+
+// null terminate payload if available
+  if (message.payload != nullptr) {
+    message.payload[message.payload_len] = '\0';
+  }
 
   // return if simple callback is not set
 #if MQTT_HAS_FUNCTIONAL
