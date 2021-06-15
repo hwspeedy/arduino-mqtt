@@ -1,6 +1,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2015 Joël Gähwiler
+
 Copyright (c) 2021 Soren Kristensen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
