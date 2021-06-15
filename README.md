@@ -1,29 +1,29 @@
 # arduino-mqtt - (ADDED: Chunked Large receive)
 
-[![Test](https://github.com/256dpi/arduino-mqtt/actions/workflows/test.yml/badge.svg)](https://github.com/256dpi/arduino-mqtt/actions/workflows/test.yml)
-[![GitHub release](https://img.shields.io/github/release/256dpi/arduino-mqtt.svg)](https://github.com/256dpi/arduino-mqtt/releases)
+[![Test](https://github.com/hwspeedy/arduino-mqtt/actions/workflows/test.yml/badge.svg)](https://github.com/hwspeedy/arduino-mqtt/actions/workflows/test.yml)
+[![GitHub release](https://img.shields.io/github/release/hwspeedy/arduino-mqtt.svg)](https://github.com/hwspeedy/arduino-mqtt/releases)
 
-This library bundles the [lwmqtt](https://github.com/256dpi/lwmqtt) MQTT 3.1.1 client and adds a thin wrapper to get an Arduino like API.
+This library bundles the [lwmqtt](https://github.com/hwspeedy/lwmqtt) MQTT 3.1.1 client and adds a thin wrapper to get an Arduino like API.
 
-Download the latest version from the [release](https://github.com/256dpi/arduino-mqtt/releases) section. Or even better use the builtin Library Manager in the Arduino IDE and search for "MQTT".
+Download the latest version from the [release](https://github.com/hwspeedy/arduino-mqtt/releases) section. Or even better use the builtin Library Manager in the Arduino IDE and search for "MQTT".
 
-The library is also available on [PlatformIO](https://platformio.org/lib/show/617/MQTT). You can install it by running: `pio lib install "256dpi/MQTT"`. 
+The library is also available on [PlatformIO](https://platformio.org/lib/show/617/MQTT). You can install it by running: `pio lib install "hwspeedy/MQTT"`. 
 
 ## Compatibility
 
 The following examples show how you can use the library with various Arduino compatible hardware:
 
-- [Arduino Yun & Yun-Shield](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoYun/ArduinoYun.ino) ([Secure](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoYunSecure/ArduinoYunSecure.ino))
-- [Arduino Ethernet Shield](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoEthernetShield/ArduinoEthernetShield.ino)    
-- [Arduino WiFi Shield](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoWiFiShield/ArduinoWiFiShield.ino)
-- [Adafruit HUZZAH ESP8266](https://github.com/256dpi/arduino-mqtt/blob/master/examples/AdafruitHuzzahESP8266/AdafruitHuzzahESP8266.ino) ([Secure](https://github.com/256dpi/arduino-mqtt/blob/master/examples/AdafruitHuzzahESP8266Secure/AdafruitHuzzahESP8266Secure.ino))
-- [Arduino/Genuino WiFi101 Shield](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoWiFi101/ArduinoWiFi101.ino) ([Secure](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoWiFi101Secure/ArduinoWiFi101Secure.ino))
-- [Arduino MKR GSM 1400](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoMKRGSM1400/ArduinoMKRGSM1400.ino) ([Secure](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ArduinoMKRGSM1400Secure/ArduinoMKRGSM1400Secure.ino))
-- [ESP32 Development Board](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ESP32DevelopmentBoard/ESP32DevelopmentBoard.ino) ([Secure](https://github.com/256dpi/arduino-mqtt/blob/master/examples/ESP32DevelopmentBoardSecure/ESP32DevelopmentBoardSecure.ino))
+- [Arduino Yun & Yun-Shield](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoYun/ArduinoYun.ino) ([Secure](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoYunSecure/ArduinoYunSecure.ino))
+- [Arduino Ethernet Shield](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoEthernetShield/ArduinoEthernetShield.ino)    
+- [Arduino WiFi Shield](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoWiFiShield/ArduinoWiFiShield.ino)
+- [Adafruit HUZZAH ESP8266](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/AdafruitHuzzahESP8266/AdafruitHuzzahESP8266.ino) ([Secure](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/AdafruitHuzzahESP8266Secure/AdafruitHuzzahESP8266Secure.ino))
+- [Arduino/Genuino WiFi101 Shield](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoWiFi101/ArduinoWiFi101.ino) ([Secure](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoWiFi101Secure/ArduinoWiFi101Secure.ino))
+- [Arduino MKR GSM 1400](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoMKRGSM1400/ArduinoMKRGSM1400.ino) ([Secure](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ArduinoMKRGSM1400Secure/ArduinoMKRGSM1400Secure.ino))
+- [ESP32 Development Board](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ESP32DevelopmentBoard/ESP32DevelopmentBoard.ino) ([Secure](https://github.com/hwspeedy/arduino-mqtt/blob/master/examples/ESP32DevelopmentBoardSecure/ESP32DevelopmentBoardSecure.ino))
 
 Other shields and boards should also work if they provide a [Client](https://www.arduino.cc/en/Reference/ClientConstructor) based network implementation.
 
-**Check out the [Wiki](https://github.com/256dpi/arduino-mqtt/wiki) to find more examples.**
+**Check out the [Wiki](https://github.com/hwspeedy/arduino-mqtt/wiki) to find more examples.**
 
 ## Notes
 
@@ -250,8 +250,8 @@ lwmqtt_err_t lastError();
 lwmqtt_return_code_t returnCode();
 ```
 
-- The error codes can be found [here](https://github.com/256dpi/lwmqtt/blob/master/include/lwmqtt.h#L15).
-- The return codes can be found [here](https://github.com/256dpi/lwmqtt/blob/master/include/lwmqtt.h#L260).
+- The error codes can be found [here](https://github.com/hwspeedy/lwmqtt/blob/master/include/lwmqtt.h#L15).
+- The return codes can be found [here](https://github.com/hwspeedy/lwmqtt/blob/master/include/lwmqtt.h#L260).
 
 Disconnect from the broker:
 
