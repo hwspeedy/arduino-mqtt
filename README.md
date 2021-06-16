@@ -148,10 +148,10 @@ void onMessage(MQTTClientCallbackSimpleFunction cb);
 // Callback signature: std::function<void(String &topic, String &payload)>
 
 void onMessageAdvanced(MQTTClientCallbackAdvanced);
-// Callback signature: void messageReceived(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index) {}
+// Callback signature: void messageReceived(MQTTClient *client, char topic[], char bytes[], unsigned int len, unsigned int total_len, unsigned int index) {}
 
 void onMessageAdvanced(MQTTClientCallbackAdvancedFunction cb);
-// Callback signature: std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index)>
+// Callback signature: std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int len, unsigned int total_len, unsigned int index)>
 ```
 
 - The set callback is mostly called during a call to `loop()` but may also be called during a call to `subscribe()`, `unsubscribe()` or `publish() // QoS > 0` if messages have been received before receiving the required acknowledgement. Therefore, it is strongly recommended to not call `subscribe()`, `unsubscribe()` or `publish() // QoS > 0` directly in the callback.
@@ -202,8 +202,8 @@ bool publish(const char topic[], const String &payload);
 bool publish(const char topic[], const String &payload, bool retained, int qos);
 bool publish(const char topic[], const char payload[]);
 bool publish(const char topic[], const char payload[], bool retained, int qos);
-bool publish(const char topic[], const char payload[], int length);
-bool publish(const char topic[], const char payload[], int length, bool retained, int qos);
+bool publish(const char topic[], const char payload[], int len);
+bool publish(const char topic[], const char payload[], int len, bool retained, int qos);
 ```
 
 - The functions return a boolean that indicates if the publish has been successful (true).
