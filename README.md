@@ -3,9 +3,9 @@
 [![Test](https://github.com/hwspeedy/arduino-mqtt/actions/workflows/test.yml/badge.svg)](https://github.com/hwspeedy/arduino-mqtt/actions/workflows/test.yml)
 [![GitHub release](https://img.shields.io/github/release/hwspeedy/arduino-mqtt.svg)](https://github.com/hwspeedy/arduino-mqtt/releases)
 
-Download the latest version from the [release](https://github.com/hwspeedy/arduino-mqtt/releases) section. Or even better use the builtin Library Manager in the Arduino IDE and search for "MQTT".
+Download the latest zip version from the [release](https://github.com/hwspeedy/arduino-mqtt/releases) section and add zip to libraries. 
 
-The library is also available on [PlatformIO](https://platformio.org/lib/show/12442/arduino-mqtt). You can install it by running: `pio lib install "hwspeedy/MQTT"`. 
+The library is also available on [PlatformIO](https://platformio.org/lib/show/12442/arduino-mqtt). You can install it by running: `pio lib install "hwspeedy/arduino-mqtt"`. 
 
 ## Compatibility
 
@@ -20,9 +20,7 @@ Other shields and boards should also work if they provide a [Client](https://www
 ## Notes
 
 - The maximum size for packets being published and received is set by default to 128 bytes. To change the buffer sizes, you need to use `MQTTClient client(256)` instead of just `MQTTClient client` on the top of your sketch. The passed value denotes the read and write buffer size.
-
-- On the ESP8266 it has been reported that an additional `delay(10);` after `client.loop();` fixes many stability issues with WiFi connections.
-
+- 
 - To use the library with shiftr.io, you need to provide the token key (username) and token secret (password) as the second and third argument to `client.connect(name, key, secret)`. 
 
 ## Example
