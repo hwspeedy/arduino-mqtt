@@ -1,23 +1,35 @@
-// This example uses an Arduino Yun or a Yun-Shield
-// and the MQTTClient to connect to shiftr.io.
+// This example uses ESP8266 or ESP32
+// to connect to shiftr.io.
 //
 // You can check on your device after a successful
 // connection here: https://www.shiftr.io/try.
 //
-// by Joël Gähwiler
-// https://github.com/256dpi/arduino-mqtt
+// by Joël Gähwiler, Soren Kristensen
 
-#include <Bridge.h>
-#include <BridgeClient.h>
-#include <MQTT.h>
+#include <ESP8266WiFi.h>
+#include <MQTTClient.h>
 
-BridgeClient net;
+const char ssid[] = "ssid";
+const char pass[] = "pass";
+
+WiFiClientSecure net;
 MQTTClient client;
 
 unsigned long lastMillis = 0;
 
 void connect() {
-  Serial.print("connecting...");
+  Serial.print("checking wifi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(1000);
+  }
+
+  // do not verify tls certificate
+  // check the following example for methods to verify the server:
+  // https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/examples/BearSSL_Validation/BearSSL_Validation.ino
+  net.setInsecure();
+
+  Serial.print("\nconnecting...");
   while (!client.connect("arduino", "public", "public")) {
     Serial.print(".");
     delay(1000);
@@ -39,12 +51,14 @@ void messageReceived(String &topic, String &payload) {
 }
 
 void setup() {
-  Bridge.begin();
   Serial.begin(115200);
+  WiFi.begin(ssid, pass);
 
   // Note: Local domain names (e.g. "Computer.local" on OSX) are not supported
   // by Arduino. You need to set the IP address directly.
-  client.begin("public.cloud.shiftr.io", net);
+  //
+  // MQTT brokers usually use port 8883 for secure connections.
+  client.begin("public.cloud.shiftr.io", 8883, net);
   client.onMessage(messageReceived);
 
   connect();

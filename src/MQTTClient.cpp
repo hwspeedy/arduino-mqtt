@@ -112,12 +112,12 @@ static void MQTTClientHandler(lwmqtt_client_t * /*client*/, void *ref, lwmqtt_st
   
   // call the advanced callback and return if available
   if (cb->advanced != nullptr) {
-    cb->advanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len,(int)message.total_len,(int)message.index);
+    cb->advanced(cb->client, terminated_topic, (char *)message.payload, (unsigned int)message.payload_len,(unsigned int)message.total_len,(unsigned int)message.index);
     return;
   }
 #if MQTT_HAS_FUNCTIONAL
   if (cb->functionAdvanced != nullptr) {
-    cb->functionAdvanced(cb->client, terminated_topic, (char *)message.payload, (int)message.payload_len,(int)message.total_len,(int)message.index);
+    cb->functionAdvanced(cb->client, terminated_topic, (char *)message.payload, (unsigned int)message.payload_len,(unsigned int)message.total_len,(unsigned int)message.index);
     return;
   }
 #endif
@@ -314,7 +314,7 @@ void MQTTClient::setCleanSession(bool _cleanSession) { this->cleanSession = _cle
 
 void MQTTClient::setTimeout(int _timeout) { this->timeout = _timeout; }
 
-bool MQTTClient::publish(const char topic[], const char payload[], int length, bool retained, int qos) {
+bool MQTTClient::publish(const char topic[], const char payload[], int len, bool retained, int qos) {
   // return immediately if not connected
   if (!this->connected()) {
     return false;
@@ -323,7 +323,7 @@ bool MQTTClient::publish(const char topic[], const char payload[], int length, b
   // prepare message
   lwmqtt_message_t message = lwmqtt_default_message;
   message.payload = (uint8_t *)payload;
-  message.payload_len = (size_t)length;
+  message.payload_len = (size_t)len;
   message.retained = retained;
   message.qos = lwmqtt_qos_t(qos);
 

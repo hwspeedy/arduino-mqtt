@@ -46,10 +46,10 @@ typedef struct {
 class MQTTClient;
 
 typedef void (*MQTTClientCallbackSimple)(String &topic, String &payload);
-typedef void (*MQTTClientCallbackAdvanced)(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index);
+typedef void (*MQTTClientCallbackAdvanced)(MQTTClient *client, char topic[], char bytes[], unsigned int len, unsigned int total_len, unsigned int index);
 #if MQTT_HAS_FUNCTIONAL
 typedef std::function<void(String &topic, String &payload)> MQTTClientCallbackSimpleFunction;
-typedef std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int length, unsigned int total_len, unsigned int index)> MQTTClientCallbackAdvancedFunction;
+typedef std::function<void(MQTTClient *client, char topic[], char bytes[], unsigned int len, unsigned int total_len, unsigned int index)> MQTTClientCallbackAdvancedFunction;
 #endif
 
 typedef struct {
@@ -158,10 +158,10 @@ class MQTTClient {
   bool publish(const char topic[], const char payload[], bool retained, int qos) {
     return this->publish(topic, (char *)payload, (int)strlen(payload), retained, qos);
   }
-  bool publish(const char topic[], const char payload[], int length) {
-    return this->publish(topic, payload, length, false, 0);
+  bool publish(const char topic[], const char payload[], unsigned int len) {
+    return this->publish(topic, payload, len, false, 0);
   }
-  bool publish(const char topic[], const char payload[], int length, bool retained, int qos);
+  bool publish(const char topic[], const char payload[], int len, bool retained, int qos);
 
   bool subscribe(const String &topic) { return this->subscribe(topic.c_str()); }
   bool subscribe(const String &topic, int qos) { return this->subscribe(topic.c_str(), qos); }
