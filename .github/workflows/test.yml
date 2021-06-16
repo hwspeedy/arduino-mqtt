@@ -12,12 +12,12 @@ jobs:
           board: "esp8266:esp8266:huzzah:eesz=4M3M,xtal=80"
         - example: "ESP8266_ESP32_Simple"
           board: "esp8266:esp8266:huzzah:eesz=4M3M,xtal=80"
-        - example: "ESP8266_ESP32_LargeReceive"
-          board: "espressif:esp32:esp32:FlashFreq=80"
-        - example: "ESP8266_ESP32_Secure"
-          board: "espressif:esp32:esp32:FlashFreq=80"
-        - example: "ESP8266_ESP32_Simple"
-          board: "espressif:esp32:esp32:FlashFreq=80"
+#        - example: "ESP8266_ESP32_LargeReceive"
+#          board: "espressif:esp32:esp32:FlashFreq=80"
+#        - example: "ESP8266_ESP32_Secure"
+#          board: "espressif:esp32:esp32:FlashFreq=80"
+#        - example: "ESP8266_ESP32_Simple"
+#          board: "espressif:esp32:esp32:FlashFreq=80"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
